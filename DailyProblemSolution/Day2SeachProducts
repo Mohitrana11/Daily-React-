@@ -1,3 +1,59 @@
+
+// First Way--------- to show error and loadData
+
+import { useState, useEffect } from 'react';
+import './App.css';
+
+function App() {
+  const [query, setQuery] = useState('');
+  const [searchData, setSearch] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); 
+      try {
+        const res = await fetch(`https://dummyjson.com/products/search?q=${query}&limit=10`);
+        const data = await res.json();
+        setSearch(data.products); 
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timeoutId = setTimeout(fetchData, 1000); 
+    return () => {
+      clearTimeout(timeoutId); 
+    };
+  }, [query]);
+
+  return (
+    <>
+      {/* Search box  */}
+      <div className="box">
+        <input type="text" placeholder="Search" onChange={(e) => setQuery(e.target.value)} />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul>
+            {searchData.map((product) => (
+              <li key={product.id}>{product.title}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+}
+
+export default App;
+
+
+
+// Second Way
+
 import { useState, useEffect } from 'react';
 import './App.css';
 
