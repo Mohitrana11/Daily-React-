@@ -20,6 +20,9 @@ function App() {
 
   const handleIdx = (e) => {
     const selectedCountry = e.target.value;
+  //   const filteredCountries = data.filter((country) => country.country === selectedCountry);
+    // const idx = data.indexOf(filteredCountries[0]);
+
     const idx = data.findIndex((country) => country.country === selectedCountry);
     setIndex(idx);
   }
