@@ -3,7 +3,7 @@ import { useContext, createContext, useState } from "react";
 const TaskContext = createContext({ data: [], setData: () => {} });
 
 const TaskContextProvider = ({ children }) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem('todoApp')) ||[]);
   return (
     <TaskContext.Provider value={{ data, setData }}>
       {children}

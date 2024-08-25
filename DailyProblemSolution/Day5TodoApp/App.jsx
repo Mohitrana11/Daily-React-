@@ -12,6 +12,9 @@ function App() {
     setInputTask('');
   };
 
+  useEffect(()=>{
+    localStorage.setItem('todoApp',JSON.stringify(...data));
+      },[data]);
   console.log(data);
 
   return (
